@@ -19,8 +19,8 @@ body {
 }
 
 .home_message {
-  padding-top: 4em;
-  padding-left: 3.5em;
+  padding-top: 6em;
+  padding-left: 4em;
 }
 
 #nav {
@@ -30,23 +30,18 @@ body {
 #nav ul {
   float: left;
   list-style:none;
-  height:70px;
+  height:50px;
   padding-left: 0em;
-  display: block;
 }
 
 #nav ul li {
 	display:inline-block;
-  margin-left: 1em;
-  width: 149px;
-  height: 145px;
-  
+  margin-left: 2em;
+  width: 145px;
+  height: 143px;
 }
 #nav ul li a { 
+  text-align: right; 
+  display:inline-block;
   padding: 0;
-}
-#nav ul li a img {
-   display: block;
-   width: 149px;
-  height: 145px;
 }
