@@ -1,0 +1,45 @@
+body {
+  padding-top: 50px;
+  background: #000;
+}
+
+.container {
+	background: url('../images/bg.jpg') no-repeat;
+  padding-top: 5px;
+	
+}
+
+.bottle {
+	padding-bottom: 5em;
+	padding-left: 8em;
+}
+
+.promo_items {
+  padding-top: 5em;
+  padding-left: 10em;
+}
+
+.home_message {
+  padding-top: 6em;
+  padding-left: 8em;
+}
+
+#nav {
+  display:block;
+  padding-left: 2em;
+}
+
+#nav ul {
+  float: left;
+  list-style:none;
+  height:50px;
+}
+
+#nav ul li {
+	float: right;
+  padding-top: 9em;
+  padding-right: 5em;
+  margin-left: 2em;
+  background: url('../images/button.png') top no-repeat; 
+}
+
