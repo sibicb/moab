@@ -19,34 +19,133 @@
     <![endif]-->
   </head>
   <body>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-8 col-sm-3">
-      <a class="bottle" href=""><img  src="assets/images/bottle_with_text.png"></a>
-    </div>
-    <div class="col-xs-4 col-sm-9">
-      <div class="col-xs-8 col-sm-12">
-        <div id="nav">
-          <ul>
-            <li><a href="index.html"><img src="assets/images/moab_btn2.png"></a></li>
-            <li><a href="gallery.html"><img src="assets/images/my_gallery_btn1.png"></a></li>
-            <li><a href="moab_gallery.html"><img src="assets/images/moab_gallery_btn1.png"></a></li>
-            <li><a href="mechanics.html"><img src="assets/images/mechanics_btn1.png"></a></li> 
-          </ul> 
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-sm-3">
+        <a class="bottle" href=""><img src="assets/images/bottle_with_text.png"></a>
+      </div>
+      <div class="col-xs-4 col-sm-9">
+        <div class="col-xs-8 col-sm-12">
+          <div id="nav">
+            <ul>
+              <li><a href="index.html"><img src="assets/images/moab_btn2.png"></a></li>
+              <li><a href="gallery.html"><img src="assets/images/my_gallery_btn1.png"></a></li>
+              <li><a href="moab_gallery.html"><img src="assets/images/moab_gallery_btn1.png"></a></li>
+              <li><a href="mechanics.html"><img src="assets/images/mechanics_btn1.png"></a></li> 
+            </ul> 
+          </div>
+        </div>
+        <div class="col-xs-8 col-sm-6">
+          <img class="home_message" src="assets/images/message_home.png">
+        </div>
+        <div class="col-xs-8 col-sm-11">
+          <img class="promo_items" src="assets/images/promo_items.png">
         </div>
       </div>
-      <div class="col-xs-8 col-sm-6">
-        <img class="home_message" src="assets/images/message_home.png">
-      </div>
-      <div class="col-xs-8 col-sm-11">
-        <img class="promo_items" src="assets/images/promo_items.png">
-      </div>
+      <div>
     </div>
-    <div>
   </div>
 
-</div>
+  <div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+       <h3 style="color: #fff;">Registration</h4>
+      </div>
+      <div class="modal-body">
+        <form class="horizontal" id="registration">
+          <div class="form-group">
+            <input type="hidden" name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
+            <input type="hidden" name="facebook_user_id" id="facebook_user_id">
+            <label for="first_name">First Name</label>
+            <input type="text" name="fname" class="form-control" id="fname">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" name="lname" class="form-control" id="lname">
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-6">Gender</label>
+            <label class="col-sm-6">Date of Birth(YYYY-MM-DD)</label>
+            <div class="col-sm-6">
+              <select name ="gender" id="gender" class="form-control">
+                <option id="male" value="Male">Male</option>
+                <option id="female" value="Female">Female</option>
+              </select>
+            </div>
+            <div class="col-sm-2">
+              <select name="bday_year" id="bday_year" class="form-control"></select>
+            </div>
+            <div class="col-xs-2" style="margin-left:-22px;">
+              <select name="bday_month" id="bday_month" class="form-control"></select>
+            </div>
+            <div class="col-xs-2" style="margin-left: -22px">
+              <select name="bday_day" id="bday_day" class="form-control"></select>
+            </div>
+            <input type="hidden" name="birthday" id="birthday">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-6">City</label>
+            <label class="col-sm-6">Province</label>
+            <div class="col-sm-6">
+              <input type="text" name="city" id="city" class="form-control">
+            </div>
+            <div class="col-sm-6">
+              <input type="text" name="province" id="province" class="form-control">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact_number">Contact Number</label>
+            <input type="text" class="form-control" name="contact_number" id="contact_number">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" class="form-control" id="email">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="is_subscribe"> Subscribe to Email Updates
+            </label>
+            <button type="submit" class="btn btn-default btn-lg" id="reg_submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/modal.js"></script>
+  <script src="assets/js/date.js"></script>
+  <script src="assets/js/facebook.js"></script>
+  <script type="text/javascript">
+    $(window).load(function(){ 
+      $('#myModal').modal({backdrop: 'static', keyboard: false },"show") 
+    });
+  </script>
+  <script type="text/javascript">
+    $('#registration').submit(function(event) {
+      var formData = JSON.stringify($("#registration").serializeArray());
+      $.ajax({
+        method: "POST",
+        url: "moab.highlysucceed.com/api/auth/register.json",
+        data: formData,
+         dataType:'json',
+         contentType: 'application/json',
+         success:function(json){
+             // do stuff with json (in this case an array)
+             alert("Success");
+         },
+         error:function(){
+             alert("Error");
+         }
+      });
+        event.preventDefault();
+    });
+  </script>
   </body>
 </html>
