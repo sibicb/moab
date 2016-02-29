@@ -54,7 +54,7 @@
        <h3 style="color: #fff;">Registration</h4>
       </div>
       <div class="modal-body">
-        <form class="horizontal" id="registration">
+        <form class="horizontal" id="registration" method="post">
           <div class="form-group">
             <input type="hidden" name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
             <input type="hidden" name="facebook_user_id" id="facebook_user_id">
@@ -84,7 +84,7 @@
             <div class="col-xs-2" style="margin-left: -22px">
               <select name="bday_day" id="bday_day" class="form-control"></select>
             </div>
-            <input type="hidden" name="birthday" id="birthday">
+            <input type="hidden" name="birthdate" id="birthday">
           </div>
           <div class="form-group row">
             <label class="col-sm-6">City</label>
@@ -128,23 +128,22 @@
     });
   </script>
   <script type="text/javascript">
-    $('#registration').submit(function(event) {
-      var formData = JSON.stringify($("#registration").serializeArray());
-      $.ajax({
-        method: "POST",
-        url: "moab.highlysucceed.com/api/auth/register.json",
-        data: formData,
-         dataType:'json',
-         contentType: 'application/json',
-         success:function(json){
-             // do stuff with json (in this case an array)
-             alert("Success");
-         },
-         error:function(){
-             alert("Error");
-         }
+    $("document").ready(function(){
+      $("#registration").submit(function(){
+        var formData = JSON.stringify($("#registration").serializeArray());
+        var url = "moab.highlysucceed.com/api/auth/register.json";
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: url, //Relative or absolute path to response.php file
+          data: formData,
+          success: function(data) {
+          alert(data.msg);
+          console.log(data);
+          }
+        });
+        return false;
       });
-        event.preventDefault();
     });
   </script>
   </body>

@@ -23,12 +23,11 @@ for(var i = year; i > year-100; i--){
 document.getElementById("bday_day").innerHTML = day_html;
 document.getElementById("bday_month").innerHTML = month_html;
 document.getElementById("bday_year").innerHTML = year_html;
-document.getElementById("birthday").value = +year_html+'-'+month_html+'-'+day_html;
 
 
 var year =  document.getElementById("bday_year").value;
 var month =  document.getElementById("bday_month").value;
 var day =  document.getElementById("bday_day").value;
 
-document.getElementById("birthday").value = new Date('"'+year+'-'+month+'-'+day+'"');
+document.getElementById("birthday").value = year+'-'+month+'-'+day;
 
