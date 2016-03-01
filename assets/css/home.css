@@ -18,8 +18,17 @@ body {
 }
 
 .home_message {
-  padding-top: 6em;
+  padding-top: 2em;
   padding-left: 4em;
+}
+.mechanics_text {
+  padding-top: 8em;
+  padding-left: 4em;
+}
+
+.uploadForm{
+  padding-top: 7em;
+  padding-left: 10em;
 }
 
 #nav {
@@ -29,7 +38,7 @@ body {
 #nav ul {
   float: left;
   list-style:none;
-  height:50px;
+  height:100px;
   padding-left: 0em;
 }
 
@@ -42,7 +51,7 @@ body {
 
 #nav ul li a {
   text-align: right;
-  display:inline-block;
+  display:block;
   padding: 0;
 }
 
@@ -68,5 +77,75 @@ body {
   color: #fff;
   background: #bd7302;
   width: 13em;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  font-size: 24px;
+  color: #fff;
+  background: #bd7302;
+  width: 13em;
+
+}
+
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  opacity: 0;
+}
+#caption {
+  width:30em;
+  height:13em;
+  text-align: center;
+  word-wrap: 
+} 
+
+.uploadDiv {
+  padding-left: 4em;
+}
+
+.uploadDiv h3 {
+  font-size: 24px;
+  color: #bd7302;
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+#preview {
+  font-size: 24px;
+  color: #fff;
+  background: #bd7302;
+  width: 13em;
+}
+
+.previewDiv {
+  margin-top: 18em;
+  padding-left: 5em;
+}
+
+.arrowUp {
+  padding-right:77%;
+  padding-bottom:12em;
+    position: absolute;
+    margin: auto;
+    color: #ffff00;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 34px;
+    line-height: 40px;
+    -webkit-animation: bounce 2s infinite ease-in-out;
+}
+@-webkit-keyframes bounce {
+  0%, 20%, 60%, 100%  { -webkit-transform: translateY(0); }
+  40%  { -webkit-transform: translateY(20px); }
+  80% { -webkit-transform: translateY(10px); }
 }
 

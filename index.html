@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <<meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>MOAB</title>
@@ -29,13 +30,14 @@
         <div class="col-xs-8 col-sm-12">
           <div id="nav">
             <ul>
-              <li><a href="index.html"><img src="assets/images/moab_btn2.png"></a></li>
+              <li><a href="upload.html"><img src="assets/images/moab_btn2.png"></a></li>
               <li><a href="gallery.html"><img src="assets/images/my_gallery_btn1.png"></a></li>
               <li><a href="moab_gallery.html"><img src="assets/images/moab_gallery_btn1.png"></a></li>
               <li><a href="mechanics.html"><img src="assets/images/mechanics_btn1.png"></a></li> 
             </ul> 
           </div>
         </div>
+        <div class="arrowUp">&#11014;</div>
         <div class="col-xs-8 col-sm-6">
           <img class="home_message" src="assets/images/message_home.png">
         </div>
@@ -59,18 +61,18 @@
             <input type="hidden" name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
             <input type="hidden" name="facebook_user_id" id="facebook_user_id">
             <label for="first_name">First Name</label>
-            <input type="text" name="fname" class="form-control" id="fname">
+            <input type="text" name="fname" class="form-control" id="fname" required>
           </div>
           <div class="form-group">
             <label for="last_name">Last Name</label>
-            <input type="text" name="lname" class="form-control" id="lname">
+            <input type="text" name="lname" class="form-control" id="lname" required>
           </div>
 
           <div class="form-group row">
             <label class="col-sm-6">Gender</label>
             <label class="col-sm-6">Date of Birth(YYYY-MM-DD)</label>
             <div class="col-sm-6">
-              <select name ="gender" id="gender" class="form-control">
+              <select name ="gender" id="gender" class="form-control" required>
                 <option id="male" value="Male">Male</option>
                 <option id="female" value="Female">Female</option>
               </select>
@@ -90,20 +92,20 @@
             <label class="col-sm-6">City</label>
             <label class="col-sm-6">Province</label>
             <div class="col-sm-6">
-              <input type="text" name="city" id="city" class="form-control">
+              <input type="text" name="city" id="city" class="form-control" required>
             </div>
             <div class="col-sm-6">
-              <input type="text" name="province" id="province" class="form-control">
+              <input type="text" name="province" id="province" class="form-control" required>
             </div>
           </div>
 
           <div class="form-group">
             <label for="contact_number">Contact Number</label>
-            <input type="text" class="form-control" name="contact_number" id="contact_number">
+            <input type="text" class="form-control" name="contact_number" id="contact_number" required>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" name="email" class="form-control" id="email">
+            <input type="email" name="email" class="form-control" id="email" required>
           </div>
           <div class="checkbox">
             <label>
@@ -116,6 +118,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<div id="images"></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
@@ -127,21 +130,41 @@
       $('#myModal').modal({backdrop: 'static', keyboard: false },"show") 
     });
   </script>
+  
   <script type="text/javascript">
     $("document").ready(function(){
-      $("#registration").submit(function(){
-        var formData = JSON.stringify($("#registration").serializeArray());
-        var url = "moab.highlysucceed.com/api/auth/register.json";
-        $.ajax({
-          type: "POST",
-          url: url, //Relative or absolute path to response.php file
-          data: formData,
-          success: function(data) {
-          alert(data.msg);
-          console.log(data);
-          }
-        });
-        return false;
+      $("#registration").submit(function(event){
+        var year =  document.getElementById("bday_year").value;
+        var month =  document.getElementById("bday_month").value;
+        var day =  document.getElementById("bday_day").value;
+        var age = 18;
+        var mydate = new Date();
+        mydate.setFullYear(year, month-1, day);
+        var currdate = new Date();
+        var setDate = new Date();
+        setDate.setFullYear(mydate.getFullYear() + age, month-1, day);
+        
+        if ((currdate - setDate) > 0){
+          var formData = $("#registration").serializeArray();
+          var url = "moab.highlysucceed.com/api/auth/register.json";
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: formData
+          }).done(function(data){
+              var json = JSON.parse(data);
+              if(json.isValid){
+                $('#myModal').modal("hide");
+                alert(json.msg);
+                window.location = "upload.html"
+              } else {
+               alert(json.msg);
+              }
+          });
+        }else{
+          alert("below 18");
+        }
+      event.preventDefault();
       });
     });
   </script>
