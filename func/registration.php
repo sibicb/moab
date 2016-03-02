@@ -32,6 +32,7 @@ if(isset($_POST['cid']) && !empty($_POST['cid']) && isset($_POST['bname']) && !e
 } else {
   $message = array("isValid"=>false,"message"=>"Invalid parameter");
   echo json_encode($message);
+  $registered = 0;
 }
 
 ?>

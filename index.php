@@ -1,12 +1,16 @@
-<?php include("lib/init.php"); ?>
+<?php
+include("lib/init.php");
+include("login-callback.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title></title>
+    <title>MOAB</title>
 
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +53,6 @@
     </div>
   </div>
 
-          <div class="welcome"></div>
   <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -60,13 +63,13 @@
         <form class="horizontal" id="registration" method="post">
           <div class="form-group">
             <input type="hidden" name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
-            <input type="hidden" name="facebook_user_id" id="facebook_user_id">
+            <input type="hidden" name="facebook_user_id" value="<?php echo $_SESSION['facebook_user_id'];?>">
             <label for="first_name">First Name</label>
-            <input type="text" name="fname" class="form-control" id="fname" required>
+            <input type="text" name="fname" class="form-control" id="fname" value= "<?php echo $_SESSION['first_name'];?>" required>
           </div>
           <div class="form-group">
             <label for="last_name">Last Name</label>
-            <input type="text" name="lname" class="form-control" id="lname" required>
+            <input type="text" name="lname" class="form-control" id="lname" value= "<?php echo $_SESSION['last_name'];?>" required>
           </div>
 
           <div class="form-group row">
@@ -102,12 +105,12 @@
 
           <div class="form-group">
             <label for="contact_number">Contact Number</label>
-            <input type="text" class="form-control" name="contact_number" id="contact_number" required>
+            <input type="text" class="form-control" name="contact_number" id="contact_number" size="11" required>
           </div>
           <div class="form-group">
 
             <label for="email">Email Address</label>
-            <input type="email" name="email" class="form-control" id="email" required>
+            <input type="email" name="email" class="form-control" id="email" value="<?php echo $_SESSION['email'];?>" required>
           </div>
           <div class="checkbox">
             <label>
@@ -120,22 +123,88 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<form class="session" id="session" method="get">
+<input type="hidden" id='api_token' name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
+<input type="hidden" id="key" name="key" value="facebook_user_id">
+<input type="hidden" id="fb_id" name="fb_id" value="<?php echo $_SESSION['facebook_user_id'];?>">
+</form>
+<h3></h3>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/modal.js"></script>
   <script src="assets/js/date.js"></script>
+  <script src="assets/js/facebook.js"></script>
   <script type="text/javascript">
-    $.ajax({
-        type: "GET",
-        url: 'func/info.php',
-        data: {api_token: 'qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9',key: 'facebook_user_id', value: 122307324827149},
-        success: function(data){
-            alert(data);
+  var api_token = $("#api_token").val()
+  var key = $("#key").val()
+  var fb_id = $("#fb_id").val()
+  $(function(){
+    var info = {
+        init: function(){
+          $.ajax({
+            type: "GET",
+            url: 'func/info.php',
+            cache: false,
+            data: {api_token:api_token, key: key, value:fb_id},
+         }).done(function(data){
+            var json = JSON.parse(data);
+            if(json.isValid == false){
+              console.log(json);
+              $('#myModal').modal({backdrop: 'static', keyboard: false },"show")
+                      
+            } else {
+              console.log(json); 
+            }
+          });
         }
-    });
-   
+      };
+      
+      info.init();
+
+      $("#registration").submit(function(event){
+          var formData = $("#registration").serializeArray();
+          var url = "moab.highlysucceed.com/api/auth/register.json";
+          $.ajax({
+            type: "POST",
+            cache:false,
+            url: url,
+            data: formData
+          }).done(function(data){
+              var json = JSON.parse(data);
+              if(json.isValid){
+                $('#myModal').modal("hide");
+                alert(json.msg);
+                window.location= "index.php"
+              } else {
+               alert(json.msg);
+              }
+          });
+      event.preventDefault();
+      });
+  });
+ 
+
+  </script> 
+
+
+
+
+
+
+
+
+
+
+
   
-  </script>
+
+
+
+
+
+
+
+
   </body>
 </html>

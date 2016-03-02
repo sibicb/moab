@@ -23,7 +23,6 @@ for(var i = year; i > year-100; i--){
 document.getElementById("bday_day").innerHTML = day_html;
 document.getElementById("bday_month").innerHTML = month_html;
 document.getElementById("bday_year").innerHTML = year_html;
-document.getElementById("birthday").value = +year_html+'-'+month_html+'-'+day_html;
 
 
 var year =  document.getElementById("bday_year").value;
