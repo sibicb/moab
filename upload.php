@@ -1,3 +1,6 @@
+<?php
+include("lib/init.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,16 +39,17 @@
         </div>
       </div>
   </div>
+
   <div class="col-xs-9 col-sm-9">
     <div class="uploadForm">
-        <form class="horizontal" id="upload" method="post">
+        <form class="horizontal" id="upload" action="uploadPreview.php" enctype="multipart/form-data" method="post">
           <div class="form-group">
             <input type="hidden" name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
-            <input type="hidden" name="user_id" id="user_id">
+            <input type="hidden" name="user_id" id="user_id" value ="<?php echo $_SESSION['user_id'];?>">
             <div class="uploadDiv">
               <div class="fileUpload btn btn-default btn-lg">
                   <span>Browse Photo</span>
-                  <input id="uploadBtn" type="file" class="upload" />
+                  <input id="fileToUpload" type="file" name="fileToUpload" class="upload" />
               </div>
                 <h3> What's your message? </h3>
             </div>
@@ -62,10 +66,11 @@
         </form>
       </div>
   </div>
-
+<div id="targetLayer">No Image</div>
 </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
+
   
   </body>
 </html>
