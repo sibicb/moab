@@ -125,12 +125,11 @@
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/modal.js"></script>
   <script src="assets/js/date.js"></script>
-  <script src="assets/js/facebook.js"></script>
   <script type="text/javascript">
     $.ajax({
         type: "GET",
         url: 'func/info.php',
-        data: {api_token: 'qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9',key: 'facebook_user_id', value: facebook_user_id},
+        data: {api_token: 'qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9',key: 'facebook_user_id', value: 122307324827149},
         success: function(data){
             alert(data);
         }
