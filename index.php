@@ -1,12 +1,12 @@
+<?php include("lib/init.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <<meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>MOAB</title>
+    <title></title>
 
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -49,6 +49,7 @@
     </div>
   </div>
 
+          <div class="welcome"></div>
   <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -104,6 +105,7 @@
             <input type="text" class="form-control" name="contact_number" id="contact_number" required>
           </div>
           <div class="form-group">
+
             <label for="email">Email Address</label>
             <input type="email" name="email" class="form-control" id="email" required>
           </div>
@@ -118,7 +120,6 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<div id="images"></div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
@@ -126,47 +127,16 @@
   <script src="assets/js/date.js"></script>
   <script src="assets/js/facebook.js"></script>
   <script type="text/javascript">
-    $(window).load(function(){ 
-      $('#myModal').modal({backdrop: 'static', keyboard: false },"show") 
-    });
-  </script>
-  
-  <script type="text/javascript">
-    $("document").ready(function(){
-      $("#registration").submit(function(event){
-        var year =  document.getElementById("bday_year").value;
-        var month =  document.getElementById("bday_month").value;
-        var day =  document.getElementById("bday_day").value;
-        var age = 18;
-        var mydate = new Date();
-        mydate.setFullYear(year, month-1, day);
-        var currdate = new Date();
-        var setDate = new Date();
-        setDate.setFullYear(mydate.getFullYear() + age, month-1, day);
-        
-        if ((currdate - setDate) > 0){
-          var formData = $("#registration").serializeArray();
-          var url = "moab.highlysucceed.com/api/auth/register.json";
-          $.ajax({
-            type: "POST",
-            url: url,
-            data: formData
-          }).done(function(data){
-              var json = JSON.parse(data);
-              if(json.isValid){
-                $('#myModal').modal("hide");
-                alert(json.msg);
-                window.location = "upload.html"
-              } else {
-               alert(json.msg);
-              }
-          });
-        }else{
-          alert("below 18");
+    $.ajax({
+        type: "GET",
+        url: 'func/info.php',
+        data: {api_token: 'qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9',key: 'facebook_user_id', value: facebook_user_id},
+        success: function(data){
+            alert(data);
         }
-      event.preventDefault();
-      });
     });
+   
+  
   </script>
   </body>
 </html>
