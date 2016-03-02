@@ -99,6 +99,14 @@ body {
   font-size: 20px;
   opacity: 0;
 }
+
+#txtFileName {
+  font-size: 24px;
+  width: 18em;
+  height: 2em;
+  margin-left: -2em;
+  margin-top: 1em;
+}
 #caption {
   width:30em;
   height:13em;
