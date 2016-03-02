@@ -34,10 +34,10 @@ include("login-callback.php");
         <div class="col-xs-8 col-sm-12">
           <div id="nav">
             <ul>
-              <li><a href="upload.html"><img src="assets/images/moab_btn2.png"></a></li>
-              <li><a href="gallery.html"><img src="assets/images/my_gallery_btn1.png"></a></li>
-              <li><a href="moab_gallery.html"><img src="assets/images/moab_gallery_btn1.png"></a></li>
-              <li><a href="mechanics.html"><img src="assets/images/mechanics_btn1.png"></a></li> 
+              <li><a href="upload.php"><img src="assets/images/moab_btn2.png"></a></li>
+              <li><a href="gallery.php"><img src="assets/images/my_gallery_btn1.png"></a></li>
+              <li><a href="moab_gallery.php"><img src="assets/images/moab_gallery_btn1.png"></a></li>
+              <li><a href="mechanics.php"><img src="assets/images/mechanics_btn1.png"></a></li> 
             </ul> 
           </div>
         </div>

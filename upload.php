@@ -31,10 +31,10 @@ include("lib/init.php");
       <div class="col-xs-8 col-sm-12">
         <div id="nav">
           <ul>
-            <li><a href="upload.html"><img src="assets/images/moab_btn2.png"></a></li>
-            <li><a href="gallery.html"><img src="assets/images/my_gallery_btn1.png"></a></li>
-            <li><a href="moab_gallery.html"><img src="assets/images/moab_gallery_btn1.png"></a></li>
-            <li><a href="mechanics.html"><img src="assets/images/mechanics_btn1.png"></a></li> 
+            <li><a href="upload.php"><img src="assets/images/moab_btn2.png"></a></li>
+            <li><a href="gallery.php"><img src="assets/images/my_gallery_btn1.png"></a></li>
+            <li><a href="moab_gallery.php"><img src="assets/images/moab_gallery_btn1.png"></a></li>
+            <li><a href="mechanics.php"><img src="assets/images/mechanics_btn1.png"></a></li> 
           </ul> 
         </div>
       </div>
@@ -49,8 +49,9 @@ include("lib/init.php");
             <div class="uploadDiv">
               <div class="fileUpload btn btn-default btn-lg">
                   <span>Browse Photo</span>
-                  <input id="fileToUpload" type="file" name="fileToUpload" class="upload" />
+                  <input id="fileToUpload" type="file" name="fileToUpload" class="upload" onchange="CopyMe(this, 'txtFileName');" />
               </div>
+              <input id="txtFileName" type="text" readonly="readonly" class="form-control"/>
                 <h3> What's your message? </h3>
             </div>
           <div class="form-group">
@@ -66,10 +67,46 @@ include("lib/init.php");
         </form>
       </div>
   </div>
-<div id="targetLayer">No Image</div>
 </div>
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" style="background: white">
+        <div id ="error"></div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    function CopyMe(oFileInput, sTargetID) {
+      var arrTemp = oFileInput.value.split('\\');
+    document.getElementById(sTargetID).value = arrTemp[arrTemp.length - 1];
+    }
+    $(document).ready(function (e) {
+      $("#upload").on('submit',(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: "uploadPreview.php",
+          type: "POST",
+          data:  new FormData(this),
+          contentType: false,
+              cache: false,
+          processData:false,
+          success: function(data){
+            console.log(data);
+          $('#error').html(data)
+          $('#uploadModal').modal("show");
+          },
+          error: function() 
+          {
+          }           
+         });
+      }));
+    });
+  </script>
 
   
   </body>
