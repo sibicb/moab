@@ -91,12 +91,10 @@ include("lib/init.php");
       $("#upload").on('submit',(function(e) {
         e.preventDefault();
         $.ajax({
-          url: "func/upload.php",
+          url: "func/moab_upload.php",
           type: "POST",
           data:  new FormData(this),
-          contentType: false,
-              cache: false,
-          processData:false,        
+          contentType: "multipart/form-data",        
          }).done(function(data){
             var json = JSON.parse(data);
             if(json.isValid){
