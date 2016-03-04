@@ -42,7 +42,7 @@ include("lib/init.php");
 
   <div class="col-xs-9 col-sm-9">
     <div class="uploadForm">
-        <form class="horizontal" id="upload" action="uploadPreview.php" enctype="multipart/form-data" method="post">
+        <form class="horizontal" id="upload" enctype="multipart/form-data" method="post">
           <div class="form-group">
             <input type="hidden" name="api_token" value="qNoRXbEoEwxzKisReAkZ2pa7f8poTeq9">
             <input type="hidden" name="user_id" id="user_id" value ="<?php echo $_SESSION['user_id'];?>">
@@ -72,6 +72,8 @@ include("lib/init.php");
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body" style="background: white">
+      <h3 id="msg"></h3>
+      <div class="alert hidden" role="alert" id="modalAlert"></div>
         <div id ="error"></div>
       </div>
     </div><!-- /.modal-content -->
@@ -89,21 +91,24 @@ include("lib/init.php");
       $("#upload").on('submit',(function(e) {
         e.preventDefault();
         $.ajax({
-          url: "uploadPreview.php",
+          url: "func/upload.php",
           type: "POST",
           data:  new FormData(this),
           contentType: false,
               cache: false,
-          processData:false,
-          success: function(data){
-            console.log(data);
-          $('#error').html(data)
-          $('#uploadModal').modal("show");
-          },
-          error: function() 
-          {
-          }           
-         });
+          processData:false,        
+         }).done(function(data){
+            var json = JSON.parse(data);
+            if(json.isValid){
+              $('#uploadModal').find('#msg').html(json.message).show;
+              $('#uploadModal').modal("show");
+                       
+            } else {
+              $('#uploadModal').find('#msg').html(json.message).show;
+              $('#uploadModal').modal("show");
+            }
+          });
+      return false;
       }));
     });
   </script>
